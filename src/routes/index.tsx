@@ -48,15 +48,9 @@ function Nav() {
           <LangToggle />
           <Link
             to="/login"
-            className="hidden text-sm font-medium text-muted-foreground hover:text-foreground sm:inline"
+            className="rounded-full border border-border bg-surface/50 px-4 py-2 text-sm font-semibold text-foreground hover:bg-surface"
           >
             {t("nav.login")}
-          </Link>
-          <Link
-            to="/signup"
-            className="rounded-full bg-gradient-aurora px-4 py-2 text-sm font-semibold text-primary-foreground glow-aurora transition-transform hover:scale-[1.02]"
-          >
-            {t("nav.signup")}
           </Link>
         </div>
       </div>
@@ -86,18 +80,18 @@ function Hero() {
           </h1>
           <p className="mt-6 max-w-xl text-lg text-muted-foreground">{t("hero.subtitle")}</p>
           <div className="mt-8 flex flex-wrap gap-4">
-            <Link
-              to="/signup"
+            <a
+              href="#tools"
               className="group inline-flex items-center gap-2 rounded-full bg-gradient-aurora px-6 py-3 text-sm font-semibold text-primary-foreground glow-aurora transition-transform hover:scale-[1.02]"
             >
-              {t("hero.cta.primary")}
+              {t("hero.cta.secondary")}
               <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
-            </Link>
+            </a>
             <a
               href="#tools"
               className="inline-flex items-center gap-2 rounded-full border border-border bg-surface/50 px-6 py-3 text-sm font-semibold text-foreground hover:bg-surface"
             >
-              {t("hero.cta.secondary")}
+              {lang === "hi" ? "Tools test करें" : "Test tools"}
             </a>
           </div>
           <div className="mt-10 flex flex-wrap items-center gap-5 text-xs text-muted-foreground">
@@ -192,7 +186,8 @@ function ToolsGrid() {
             return (
               <Link
                 key={tool.id}
-                to="/signup"
+                to="/tools/$toolId"
+                params={{ toolId: tool.id }}
                 className={`group relative flex flex-col rounded-2xl border border-border bg-surface/60 p-6 transition-all ${a.ring}`}
               >
                 <div className={`mb-5 flex size-12 items-center justify-center rounded-xl ${a.bg}`}>
@@ -271,20 +266,20 @@ function CTA() {
       <div className="aurora-bg absolute inset-0" />
       <div className="relative mx-auto max-w-3xl rounded-3xl border border-border bg-surface/60 p-12 text-center backdrop-blur-md">
         <h2 className="font-display text-4xl font-bold">
-          {lang === "hi" ? "अपने AI दोस्त से मिलें।" : "Meet your AI Dost."}
+          {lang === "hi" ? "पहले tools test करें।" : "Test the tools first."}
         </h2>
         <p className="mx-auto mt-3 max-w-lg text-muted-foreground">
           {lang === "hi"
-            ? "मुफ़्त शुरुआत करें। कार्ड की ज़रूरत नहीं।"
-            : "Start free. No credit card required."}
+            ? "बिना signup flow में फँसे AIDost workspace खोलें और AI response देखें।"
+            : "Open the AIDost workspace and check AI responses without getting stuck in signup."}
         </p>
-        <Link
-          to="/signup"
+        <a
+          href="#tools"
           className="mt-8 inline-flex items-center gap-2 rounded-full bg-gradient-aurora px-6 py-3 text-sm font-semibold text-primary-foreground glow-aurora"
         >
-          {lang === "hi" ? "मुफ़्त खाता बनाएँ" : "Create your free account"}
+          {lang === "hi" ? "AI Tools खोलें" : "Open AI tools"}
           <ArrowRight className="size-4" />
-        </Link>
+        </a>
       </div>
     </section>
   );
