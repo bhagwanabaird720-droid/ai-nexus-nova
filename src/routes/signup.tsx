@@ -29,8 +29,8 @@ function SignupPage() {
     });
     setLoading(false);
     if (error) return toast.error(error.message);
-    toast.success("Account created! Check your email to verify.");
-    navigate({ to: "/login" });
+    toast.success("Account created!");
+    navigate({ to: "/" });
   }
 
   async function onGoogle() {
