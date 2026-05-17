@@ -77,7 +77,7 @@ function LoginPage() {
           </form>
 
           <p className="mt-6 text-center text-xs text-muted-foreground">
-            {t("auth.noAccount")} <Link to="/signup" className="text-accent hover:underline">{t("nav.signup")}</Link>
+            {t("auth.noAccount")} <button type="button" onClick={onGoogle} className="text-accent hover:underline">{t("auth.continueGoogle")}</button>
           </p>
         </div>
       </div>
