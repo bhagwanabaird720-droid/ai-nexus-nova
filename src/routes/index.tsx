@@ -266,20 +266,20 @@ function CTA() {
       <div className="aurora-bg absolute inset-0" />
       <div className="relative mx-auto max-w-3xl rounded-3xl border border-border bg-surface/60 p-12 text-center backdrop-blur-md">
         <h2 className="font-display text-4xl font-bold">
-          {lang === "hi" ? "अपने AI दोस्त से मिलें।" : "Meet your AI Dost."}
+          {lang === "hi" ? "पहले tools test करें।" : "Test the tools first."}
         </h2>
         <p className="mx-auto mt-3 max-w-lg text-muted-foreground">
           {lang === "hi"
-            ? "मुफ़्त शुरुआत करें। कार्ड की ज़रूरत नहीं।"
-            : "Start free. No credit card required."}
+            ? "बिना signup flow में फँसे AIDost workspace खोलें और AI response देखें।"
+            : "Open the AIDost workspace and check AI responses without getting stuck in signup."}
         </p>
-        <Link
-          to="/signup"
+        <a
+          href="#tools"
           className="mt-8 inline-flex items-center gap-2 rounded-full bg-gradient-aurora px-6 py-3 text-sm font-semibold text-primary-foreground glow-aurora"
         >
-          {lang === "hi" ? "मुफ़्त खाता बनाएँ" : "Create your free account"}
+          {lang === "hi" ? "AI Tools खोलें" : "Open AI tools"}
           <ArrowRight className="size-4" />
-        </Link>
+        </a>
       </div>
     </section>
   );
