@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable";
@@ -15,18 +15,40 @@ function SignupPage() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data }) => {
+      if (data.session) navigate({ to: "/" });
+    });
+  }, [navigate]);
+
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
+    const email = String(fd.get("email"));
+    const password = String(fd.get("password"));
+    const fullName = String(fd.get("name") || "");
     setLoading(true);
     const { error } = await supabase.auth.signUp({
-      email: String(fd.get("email")),
-      password: String(fd.get("password")),
+      email,
+      password,
       options: {
         emailRedirectTo: window.location.origin,
-        data: { full_name: String(fd.get("name") || "") },
+        data: { full_name: fullName },
       },
     });
+
+    if (error && /already|exists|registered/i.test(error.message)) {
+      const { error: signInErr } = await supabase.auth.signInWithPassword({ email, password });
+      setLoading(false);
+      if (signInErr) {
+        toast.error("Yeh email pehle Google se signup hua tha. 'Continue with Google' use karein, ya alag email try karein.");
+        return;
+      }
+      toast.success("Logged in!");
+      navigate({ to: "/" });
+      return;
+    }
+
     setLoading(false);
     if (error) return toast.error(error.message);
     toast.success("Account created!");
