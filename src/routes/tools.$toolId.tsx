@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { ArrowLeft, Send, Sparkles } from "lucide-react";
+import { ArrowLeft, Send, Sparkles, Copy, RotateCcw, Download } from "lucide-react";
 import { useMemo, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { toast } from "sonner";
@@ -8,12 +8,13 @@ import { toast } from "sonner";
 import { useI18n } from "@/lib/i18n";
 import { runAiTool } from "@/lib/tool-runner.functions";
 import { getTool } from "@/lib/tools-catalog";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/tools/$toolId")({
   component: ToolPage,
 });
 
-type Message = { role: "user" | "assistant"; content: string };
+type Message = { role: "user" | "assistant"; content: string; imageUrl?: string };
 
 function ToolPage() {
   const { toolId } = Route.useParams();
@@ -23,6 +24,7 @@ function ToolPage() {
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState(false);
+  const [lastPrompt, setLastPrompt] = useState<string>("");
 
   if (!tool) {
     return (
@@ -39,27 +41,64 @@ function ToolPage() {
 
   const title = lang === "hi" ? tool.name.hi : tool.name.en;
   const placeholder = lang === "hi" ? tool.inputPlaceholder?.hi : tool.inputPlaceholder?.en;
+  const isImage = tool.id === "image";
 
-  async function submit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const text = input.trim();
-    if (!text || loading || !tool) return;
-    if (tool.kind === "placeholder") {
-      toast.info(lang === "hi" ? "यह सेक्शन अभी UI placeholder है।" : "This section is a UI placeholder for now.");
-      return;
-    }
-
+  async function runWith(text: string) {
+    if (!text || !tool) return;
     setLoading(true);
-    setInput("");
+    setLastPrompt(text);
     setMessages((prev) => [...prev, { role: "user", content: text }]);
     try {
       const result = await runTool({ data: { toolId: tool.id, input: text } });
-      setMessages((prev) => [...prev, { role: "assistant", content: result.text }]);
+      const assistant: Message = {
+        role: "assistant",
+        content: result.text || (isImage ? "" : ""),
+        imageUrl: (result as { imageUrl?: string }).imageUrl,
+      };
+      setMessages((prev) => [...prev, assistant]);
+
+      // Best-effort save to cloud (silent if logged out)
+      const { data: sess } = await supabase.auth.getSession();
+      const userId = sess.session?.user?.id;
+      if (userId) {
+        try {
+          await supabase.from("chat_messages").insert([
+            { user_id: userId, thread_id: tool.id, role: "user", content: text, parts: [] },
+            {
+              user_id: userId,
+              thread_id: tool.id,
+              role: "assistant",
+              content: assistant.content,
+              parts: assistant.imageUrl ? [{ type: "image", url: assistant.imageUrl }] : [],
+            },
+          ]);
+        } catch {
+          /* ignore save errors */
+        }
+      }
     } catch (error) {
       toast.error(error instanceof Error ? error.message : "AI tool failed");
     } finally {
       setLoading(false);
     }
+  }
+
+  async function submit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const text = input.trim();
+    if (!text || loading) return;
+    setInput("");
+    await runWith(text);
+  }
+
+  async function regenerate() {
+    if (!lastPrompt || loading) return;
+    await runWith(lastPrompt);
+  }
+
+  function copy(text: string) {
+    navigator.clipboard.writeText(text);
+    toast.success(lang === "hi" ? "कॉपी हो गया" : "Copied");
   }
 
   return (
@@ -78,7 +117,7 @@ function ToolPage() {
             </div>
           </div>
           <span className="inline-flex w-fit items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs text-accent">
-            <Sparkles className="size-3.5" /> {tool.kind === "placeholder" ? "Preview UI" : "Live AI"}
+            <Sparkles className="size-3.5" /> Live AI
           </span>
         </header>
 
@@ -91,31 +130,49 @@ function ToolPage() {
                 </div>
                 <h2 className="font-display text-3xl font-bold">{title}</h2>
                 <p className="mt-3 max-w-xl text-sm text-muted-foreground">
-                  {tool.kind === "placeholder"
-                    ? lang === "hi"
-                      ? "यह AI media feature अभी placeholder है, layout testing के लिए तैयार है।"
-                      : "This AI media feature is a placeholder, ready for layout testing."
-                    : lang === "hi"
-                      ? tool.tagline.hi
-                      : tool.tagline.en}
+                  {lang === "hi" ? tool.tagline.hi : tool.tagline.en}
                 </p>
               </div>
             ) : (
               messages.map((message, idx) => (
                 <div key={idx} className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}>
                   <div
-                    className={`max-w-[88%] rounded-2xl px-4 py-3 text-sm leading-6 sm:max-w-[75%] ${
+                    className={`max-w-[92%] rounded-2xl px-4 py-3 text-sm leading-6 sm:max-w-[80%] ${
                       message.role === "user"
                         ? "bg-primary text-primary-foreground"
                         : "border border-border bg-surface/80 text-foreground"
                     }`}
                   >
-                    <ReactMarkdown>{message.content}</ReactMarkdown>
+                    {message.imageUrl && (
+                      <div className="mb-2">
+                        <img src={message.imageUrl} alt="Generated" className="rounded-xl border border-border" />
+                        <a
+                          href={message.imageUrl}
+                          download="aidost-image.png"
+                          className="mt-2 inline-flex items-center gap-1 text-xs text-accent hover:underline"
+                        >
+                          <Download className="size-3.5" /> {lang === "hi" ? "डाउनलोड" : "Download"}
+                        </a>
+                      </div>
+                    )}
+                    {message.content && <ReactMarkdown>{message.content}</ReactMarkdown>}
+                    {message.role === "assistant" && (message.content || message.imageUrl) && (
+                      <div className="mt-2 flex gap-2 text-[11px] text-muted-foreground">
+                        {message.content && (
+                          <button onClick={() => copy(message.content)} className="inline-flex items-center gap-1 hover:text-foreground">
+                            <Copy className="size-3" /> {lang === "hi" ? "कॉपी" : "Copy"}
+                          </button>
+                        )}
+                        <button onClick={regenerate} className="inline-flex items-center gap-1 hover:text-foreground">
+                          <RotateCcw className="size-3" /> {lang === "hi" ? "फिर बनाएँ" : "Regenerate"}
+                        </button>
+                      </div>
+                    )}
                   </div>
                 </div>
               ))
             )}
-            {loading && <div className="text-sm text-muted-foreground">AIDost सोच रहा है…</div>}
+            {loading && <div className="text-sm text-muted-foreground">AIDost {lang === "hi" ? "सोच रहा है…" : "is thinking…"}</div>}
           </div>
 
           <form onSubmit={submit} className="mt-4 flex gap-3">
