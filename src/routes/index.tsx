@@ -5,6 +5,7 @@ import { ArrowRight, Search, Sparkle, Languages, Zap, Shield, Layers } from "luc
 import heroImg from "@/assets/hero-aurora.jpg";
 import { useI18n, type Lang } from "@/lib/i18n";
 import { TOOLS, TOOL_CATEGORIES, ACCENT_CLASSES, type ToolCategory } from "@/lib/tools-catalog";
+import { useAuth, signOut } from "@/hooks/use-auth";
 
 export const Route = createFileRoute("/")({
   component: LandingPage,
@@ -31,7 +32,8 @@ function LangToggle() {
 }
 
 function Nav() {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
+  const { user } = useAuth();
   return (
     <nav className="sticky top-0 z-50 border-b border-border/60 bg-background/70 backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
@@ -46,12 +48,21 @@ function Nav() {
         </div>
         <div className="flex items-center gap-3">
           <LangToggle />
-          <Link
-            to="/login"
-            className="rounded-full border border-border bg-surface/50 px-4 py-2 text-sm font-semibold text-foreground hover:bg-surface"
-          >
-            {t("nav.login")}
-          </Link>
+          {user ? (
+            <button
+              onClick={() => signOut()}
+              className="rounded-full border border-border bg-surface/50 px-4 py-2 text-sm font-semibold text-foreground hover:bg-surface"
+            >
+              {lang === "hi" ? "लॉग आउट" : "Log out"}
+            </button>
+          ) : (
+            <Link
+              to="/login"
+              className="rounded-full border border-border bg-surface/50 px-4 py-2 text-sm font-semibold text-foreground hover:bg-surface"
+            >
+              {t("nav.login")}
+            </Link>
+          )}
         </div>
       </div>
     </nav>
