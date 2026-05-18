@@ -34,11 +34,37 @@ export const runAiTool = createServerFn({ method: "POST" })
       .parse(input),
   )
   .handler(async ({ data }) => {
-    const prompt = toolPrompts[data.toolId];
-    if (!prompt) throw new Error("This tool is a preview placeholder right now.");
-
     const apiKey = process.env.LOVABLE_API_KEY;
     if (!apiKey) throw new Error("AI is not configured yet.");
+
+    // ===== Image generation tool =====
+    if (data.toolId === "image") {
+      const res = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          model: "google/gemini-2.5-flash-image-preview",
+          messages: [{ role: "user", content: data.input }],
+          modalities: ["image", "text"],
+        }),
+      });
+      if (!res.ok) {
+        const txt = await res.text();
+        throw new Error(`Image generation failed: ${res.status} ${txt.slice(0, 200)}`);
+      }
+      const json = await res.json();
+      const msg = json?.choices?.[0]?.message ?? {};
+      const imageUrl: string | undefined = msg?.images?.[0]?.image_url?.url;
+      const text: string = msg?.content ?? "";
+      if (!imageUrl) throw new Error("No image returned. Try a different prompt.");
+      return { text, imageUrl };
+    }
+
+    const prompt = toolPrompts[data.toolId];
+    if (!prompt) throw new Error("This tool is a preview placeholder right now.");
 
     const provider = createLovableAiGatewayProvider(apiKey);
     const result = await generateText({

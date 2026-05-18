@@ -173,12 +173,16 @@ export const TOOLS: Tool[] = [
   {
     id: "image",
     name: { en: "AI Image Generator", hi: "AI चित्र जनरेटर" },
-    tagline: { en: "Text-to-image studio.", hi: "टेक्स्ट से चित्र।" },
+    tagline: { en: "Text-to-image studio powered by Gemini.", hi: "Gemini से टेक्स्ट-से-चित्र।" },
     category: "media",
     icon: ImageIcon,
     accent: "violet",
-    kind: "placeholder",
-    badge: { en: "Coming soon", hi: "जल्द आ रहा है" },
+    kind: "single",
+    inputPlaceholder: {
+      en: "Describe the image you want, e.g. 'A neon aurora over Himalayan peaks at dusk'.",
+      hi: "जो चित्र चाहिए वो लिखें, जैसे 'हिमालय पर सांझ की नीयन अरोरा'।",
+    },
+    badge: { en: "New", hi: "नया" },
   },
   {
     id: "video",
