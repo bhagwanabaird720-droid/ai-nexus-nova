@@ -56,26 +56,6 @@ function ToolPage() {
         imageUrl: (result as { imageUrl?: string }).imageUrl,
       };
       setMessages((prev) => [...prev, assistant]);
-
-      // Best-effort save to cloud (silent if logged out)
-      const { data: sess } = await supabase.auth.getSession();
-      const userId = sess.session?.user?.id;
-      if (userId) {
-        try {
-          await supabase.from("chat_messages").insert([
-            { user_id: userId, thread_id: tool.id, role: "user", content: text, parts: [] },
-            {
-              user_id: userId,
-              thread_id: tool.id,
-              role: "assistant",
-              content: assistant.content,
-              parts: assistant.imageUrl ? [{ type: "image", url: assistant.imageUrl }] : [],
-            },
-          ]);
-        } catch {
-          /* ignore save errors */
-        }
-      }
     } catch (error) {
       toast.error(error instanceof Error ? error.message : "AI tool failed");
     } finally {
