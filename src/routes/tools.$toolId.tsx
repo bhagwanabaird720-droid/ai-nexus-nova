@@ -8,7 +8,7 @@ import { toast } from "sonner";
 import { useI18n } from "@/lib/i18n";
 import { runAiTool } from "@/lib/tool-runner.functions";
 import { getTool } from "@/lib/tools-catalog";
-import { supabase } from "@/integrations/supabase/client";
+
 
 export const Route = createFileRoute("/tools/$toolId")({
   component: ToolPage,
