@@ -296,26 +296,6 @@ function CTA() {
   );
 }
 
-function Footer() {
-  const { t } = useI18n();
-  return (
-    <footer className="border-t border-border bg-background/80 px-6 py-12">
-      <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-6 md:flex-row">
-        <div className="flex items-center gap-2">
-          <div className="size-7 rounded-lg bg-gradient-aurora" />
-          <span className="font-display font-bold">AIDost</span>
-          <span className="ml-3 text-xs text-muted-foreground">© 2026 · {t("footer.tag")}</span>
-        </div>
-        <div className="flex gap-6 text-xs text-muted-foreground">
-          <Link to="/about" className="hover:text-foreground">About</Link>
-          <Link to="/contact" className="hover:text-foreground">Contact</Link>
-          <Link to="/login" className="hover:text-foreground">Login</Link>
-        </div>
-      </div>
-    </footer>
-  );
-}
-
 function LandingPage() {
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -324,7 +304,7 @@ function LandingPage() {
       <Features />
       <ToolsGrid />
       <CTA />
-      <Footer />
+      <SiteFooter />
     </div>
   );
 }
