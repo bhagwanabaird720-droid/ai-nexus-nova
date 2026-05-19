@@ -12,10 +12,19 @@ import {
   ImageIcon,
   Video,
   Mic,
+  StickyNote,
+  Flame,
+  Youtube,
+  Clapperboard,
+  Lightbulb,
+  Image as ImageLucide,
+  Film,
+  Sparkles,
+  ScrollText,
   type LucideIcon,
 } from "lucide-react";
 
-export type ToolCategory = "chat" | "study" | "writing" | "social" | "media";
+export type ToolCategory = "chat" | "study" | "writing" | "social" | "creator" | "media";
 
 export type Tool = {
   id: string;
@@ -24,9 +33,6 @@ export type Tool = {
   category: ToolCategory;
   icon: LucideIcon;
   accent: "primary" | "accent" | "pink" | "amber" | "violet";
-  /** AI system prompt that powers this tool. Empty = placeholder (image/video/audio). */
-  systemPrompt?: string;
-  /** Type of run UI. */
   kind: "chat" | "single" | "placeholder";
   inputLabel?: { en: string; hi: string };
   inputPlaceholder?: { en: string; hi: string };
@@ -39,6 +45,7 @@ export const TOOL_CATEGORIES: { id: "all" | ToolCategory; en: string; hi: string
   { id: "study", en: "Study", hi: "अध्ययन" },
   { id: "writing", en: "Writing", hi: "लेखन" },
   { id: "social", en: "Social", hi: "सोशल" },
+  { id: "creator", en: "Creator", hi: "क्रिएटर" },
   { id: "media", en: "Media", hi: "मीडिया" },
 ];
 
@@ -46,7 +53,7 @@ export const TOOLS: Tool[] = [
   {
     id: "chat",
     name: { en: "AI Chat Assistant", hi: "AI चैट सहायक" },
-    tagline: { en: "Conversational AI for everyday questions.", hi: "रोज़मर्रा के सवालों के लिए AI साथी।" },
+    tagline: { en: "Conversational AI with memory.", hi: "याद रखने वाला AI साथी।" },
     category: "chat",
     icon: MessageSquare,
     accent: "primary",
@@ -61,8 +68,6 @@ export const TOOLS: Tool[] = [
     icon: GraduationCap,
     accent: "accent",
     kind: "single",
-    systemPrompt:
-      "You are an expert Indian school tutor. Solve the student's homework problem with clear step-by-step explanations. If the question is in Hindi, answer in Hindi. Use simple language, show working, and finish with a one-line summary answer.",
     inputLabel: { en: "Paste your question", hi: "अपना सवाल लिखें" },
     inputPlaceholder: {
       en: "e.g. Solve: 2x + 5 = 13, then explain.",
@@ -77,9 +82,17 @@ export const TOOLS: Tool[] = [
     icon: HelpCircle,
     accent: "violet",
     kind: "single",
-    systemPrompt:
-      "You are a precise Q&A assistant. Give a concise, factual answer. If the question is in Hindi, answer in Hindi. Include a brief explanation only when helpful.",
     inputPlaceholder: { en: "Ask anything…", hi: "कुछ भी पूछें…" },
+  },
+  {
+    id: "notes",
+    name: { en: "Notes Generator", hi: "नोट्स जनरेटर" },
+    tagline: { en: "Clean revision notes for any topic.", hi: "किसी भी विषय के सुथरे नोट्स।" },
+    category: "study",
+    icon: StickyNote,
+    accent: "amber",
+    kind: "single",
+    inputPlaceholder: { en: "Topic, syllabus, chapter…", hi: "विषय, अध्याय…" },
   },
   {
     id: "resume",
@@ -89,8 +102,6 @@ export const TOOLS: Tool[] = [
     icon: FileText,
     accent: "accent",
     kind: "single",
-    systemPrompt:
-      "You are a professional resume writer for Indian tech and global remote roles. Given the candidate details, output a clean ATS-friendly resume in markdown with sections: Summary, Skills, Experience, Education, Projects. Keep bullets quantified and action-led.",
     inputLabel: { en: "Tell us about yourself", hi: "अपने बारे में बताएँ" },
     inputPlaceholder: {
       en: "Name, role, years of experience, key skills, recent projects…",
@@ -105,8 +116,6 @@ export const TOOLS: Tool[] = [
     icon: PenLine,
     accent: "pink",
     kind: "single",
-    systemPrompt:
-      "You are an essay writer. Produce a well-structured essay with an engaging intro, 3-4 body paragraphs with arguments and examples, and a strong conclusion. Match the language (Hindi/English) of the user prompt.",
     inputPlaceholder: { en: "Essay topic…", hi: "निबंध का विषय…" },
   },
   {
@@ -117,9 +126,17 @@ export const TOOLS: Tool[] = [
     icon: BookOpen,
     accent: "violet",
     kind: "single",
-    systemPrompt:
-      "You are a creative storyteller. Write an engaging short story (400-600 words) based on the user's prompt with vivid imagery and a satisfying ending. Match the language of the user prompt.",
     inputPlaceholder: { en: "Story premise…", hi: "कहानी का आरंभ…" },
+  },
+  {
+    id: "script",
+    name: { en: "Script Generator", hi: "स्क्रिप्ट जनरेटर" },
+    tagline: { en: "Video, ad, podcast & skit scripts.", hi: "वीडियो, ऐड, पॉडकास्ट स्क्रिप्ट।" },
+    category: "writing",
+    icon: ScrollText,
+    accent: "primary",
+    kind: "single",
+    inputPlaceholder: { en: "What is the script for?", hi: "स्क्रिप्ट किस लिए?" },
   },
   {
     id: "bio",
@@ -129,8 +146,6 @@ export const TOOLS: Tool[] = [
     icon: UserCircle2,
     accent: "amber",
     kind: "single",
-    systemPrompt:
-      "You write short, catchy social media bios (under 160 chars). Return 5 numbered variants, mixing emojis tastefully. Match the language of the input.",
     inputPlaceholder: { en: "About me / niche…", hi: "मेरे बारे में…" },
   },
   {
@@ -141,9 +156,98 @@ export const TOOLS: Tool[] = [
     icon: Hash,
     accent: "pink",
     kind: "single",
-    systemPrompt:
-      "You generate engaging social media captions for Instagram and Facebook. Return 5 variants with relevant hashtags. Match input language (Hindi/English/Hinglish).",
     inputPlaceholder: { en: "Describe your post…", hi: "अपनी पोस्ट बताएँ…" },
+  },
+  {
+    id: "hashtag",
+    name: { en: "Hashtag Generator", hi: "हैशटैग जनरेटर" },
+    tagline: { en: "Trending hashtag packs.", hi: "ट्रेंडिंग हैशटैग।" },
+    category: "social",
+    icon: Hash,
+    accent: "accent",
+    kind: "single",
+    inputPlaceholder: { en: "Post topic / niche…", hi: "पोस्ट का विषय…" },
+  },
+  {
+    id: "hook",
+    name: { en: "Viral Hook Generator", hi: "वायरल हुक जनरेटर" },
+    tagline: { en: "Scroll-stopping first lines.", hi: "स्क्रॉल रोकने वाली शुरुआत।" },
+    category: "creator",
+    icon: Flame,
+    accent: "pink",
+    kind: "single",
+    inputPlaceholder: { en: "Video/reel/post topic…", hi: "वीडियो/रील का विषय…" },
+    badge: { en: "Hot", hi: "हॉट" },
+  },
+  {
+    id: "yt-title",
+    name: { en: "YouTube Title Generator", hi: "YouTube टाइटल जनरेटर" },
+    tagline: { en: "Click-worthy SEO titles.", hi: "क्लिक खींचने वाले टाइटल।" },
+    category: "creator",
+    icon: Youtube,
+    accent: "pink",
+    kind: "single",
+    inputPlaceholder: { en: "Video topic / niche…", hi: "वीडियो का विषय…" },
+  },
+  {
+    id: "reel-script",
+    name: { en: "Reel Script Generator", hi: "रील स्क्रिप्ट" },
+    tagline: { en: "15–60 sec reel scripts.", hi: "15–60 सेकंड की रील स्क्रिप्ट।" },
+    category: "creator",
+    icon: Clapperboard,
+    accent: "violet",
+    kind: "single",
+    inputPlaceholder: { en: "Reel topic / hook…", hi: "रील का विषय…" },
+  },
+  {
+    id: "reel-idea",
+    name: { en: "Reel / Shorts Idea", hi: "रील / शॉर्ट्स आइडिया" },
+    tagline: { en: "Viral short-form ideas.", hi: "वायरल शॉर्ट आइडिया।" },
+    category: "creator",
+    icon: Film,
+    accent: "accent",
+    kind: "single",
+    inputPlaceholder: { en: "Niche or channel topic…", hi: "चैनल/निच…" },
+  },
+  {
+    id: "content-idea",
+    name: { en: "Content Idea Generator", hi: "कंटेंट आइडिया" },
+    tagline: { en: "30-day content calendars.", hi: "30-दिन का कंटेंट प्लान।" },
+    category: "creator",
+    icon: Lightbulb,
+    accent: "amber",
+    kind: "single",
+    inputPlaceholder: { en: "Brand / niche / audience…", hi: "ब्रांड / निच / ऑडियंस…" },
+  },
+  {
+    id: "thumbnail-idea",
+    name: { en: "Thumbnail Idea", hi: "थंबनेल आइडिया" },
+    tagline: { en: "High-CTR thumbnail concepts.", hi: "High-CTR थंबनेल आइडिया।" },
+    category: "creator",
+    icon: ImageLucide,
+    accent: "primary",
+    kind: "single",
+    inputPlaceholder: { en: "Video title or topic…", hi: "वीडियो टाइटल / विषय…" },
+  },
+  {
+    id: "storyboard",
+    name: { en: "Storyboard Generator", hi: "स्टोरीबोर्ड" },
+    tagline: { en: "Scene-by-scene shot plan.", hi: "सीन-दर-सीन शॉट प्लान।" },
+    category: "creator",
+    icon: Sparkles,
+    accent: "violet",
+    kind: "single",
+    inputPlaceholder: { en: "Story or ad concept…", hi: "कहानी / ऐड का concept…" },
+  },
+  {
+    id: "image-prompt",
+    name: { en: "AI Image Prompt", hi: "AI इमेज प्रॉम्प्ट" },
+    tagline: { en: "Pro prompts for image AIs.", hi: "इमेज AI के लिए प्रो प्रॉम्प्ट।" },
+    category: "media",
+    icon: Sparkles,
+    accent: "amber",
+    kind: "single",
+    inputPlaceholder: { en: "What do you want to see?", hi: "क्या बनवाना है?" },
   },
   {
     id: "translate",
@@ -153,8 +257,6 @@ export const TOOLS: Tool[] = [
     icon: Languages,
     accent: "accent",
     kind: "single",
-    systemPrompt:
-      "You are a precise translator. Detect the source language. If it's English, translate to natural Hindi. If it's Hindi, translate to natural English. Preserve tone. Only output the translation.",
     inputPlaceholder: { en: "Text to translate…", hi: "अनुवाद हेतु पाठ…" },
   },
   {
@@ -165,8 +267,6 @@ export const TOOLS: Tool[] = [
     icon: MessageCircle,
     accent: "accent",
     kind: "single",
-    systemPrompt:
-      "You craft natural WhatsApp replies. Match the tone (casual/formal/funny) inferred from the message. Return 3 short reply variants. Match language (Hindi/English/Hinglish).",
     inputLabel: { en: "Paste the message", hi: "संदेश पेस्ट करें" },
     inputPlaceholder: { en: "What did they say?", hi: "उन्होंने क्या लिखा?" },
   },
@@ -186,8 +286,8 @@ export const TOOLS: Tool[] = [
   },
   {
     id: "video",
-    name: { en: "AI Video Generator", hi: "AI वीडियो जनरेटर" },
-    tagline: { en: "Generate short clips from prompts.", hi: "प्रॉम्प्ट से वीडियो।" },
+    name: { en: "AI Video Studio", hi: "AI वीडियो स्टूडियो" },
+    tagline: { en: "Reel & Shorts planning suite.", hi: "रील व शॉर्ट्स प्लानिंग।" },
     category: "media",
     icon: Video,
     accent: "pink",
@@ -197,7 +297,7 @@ export const TOOLS: Tool[] = [
   {
     id: "audio",
     name: { en: "AI Voice & Audio", hi: "AI आवाज़ व ऑडियो" },
-    tagline: { en: "Synthesize natural voices.", hi: "प्राकृतिक आवाज़।" },
+    tagline: { en: "Voice cloning & enhancement.", hi: "वॉइस क्लोनिंग व सुधार।" },
     category: "media",
     icon: Mic,
     accent: "amber",
