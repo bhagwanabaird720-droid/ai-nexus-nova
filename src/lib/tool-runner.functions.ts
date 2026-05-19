@@ -99,16 +99,15 @@ export const runAiTool = createServerFn({ method: "POST" })
 
     const provider = createLovableAiGatewayProvider(apiKey);
 
-    // Chat tool supports conversation memory via history
+    const model = provider("google/gemini-2.5-flash");
     const isChat = data.toolId === "chat";
-    const result = await generateText({
-      model: provider("google/gemini-2.5-flash"),
-      system: prompt,
-      messages: isChat && data.history?.length
-        ? [...data.history, { role: "user" as const, content: data.input }]
-        : undefined,
-      prompt: isChat && data.history?.length ? undefined : data.input,
-    });
+    const result = isChat && data.history?.length
+      ? await generateText({
+          model,
+          system: prompt,
+          messages: [...data.history, { role: "user" as const, content: data.input }],
+        })
+      : await generateText({ model, system: prompt, prompt: data.input });
 
     return { text: result.text };
   });
