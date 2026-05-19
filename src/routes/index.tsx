@@ -6,6 +6,7 @@ import heroImg from "@/assets/hero-aurora.jpg";
 import { useI18n, type Lang } from "@/lib/i18n";
 import { TOOLS, TOOL_CATEGORIES, ACCENT_CLASSES, type ToolCategory } from "@/lib/tools-catalog";
 import { useAuth, signOut } from "@/hooks/use-auth";
+import { SiteFooter } from "@/components/site-footer";
 
 export const Route = createFileRoute("/")({
   component: LandingPage,
