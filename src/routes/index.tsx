@@ -9,6 +9,35 @@ import { useAuth, signOut } from "@/hooks/use-auth";
 import { SiteFooter } from "@/components/site-footer";
 
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "AIDost — Your AI Bestie | 24+ AI Tools in Hindi & English" },
+      { name: "description", content: "AIDost is a futuristic AI workspace for Bharat — chat, homework, resume, captions, reels, image generation and 20+ more tools in Hindi & English." },
+      { name: "keywords", content: "AI tools, Hindi AI, AI chat, resume builder, AI image generator, YouTube titles, reel script, hashtag generator, AIDost" },
+      { property: "og:title", content: "AIDost — 24+ AI Tools in Hindi & English" },
+      { property: "og:description", content: "One futuristic workspace for chat, study, writing, social and creator tools — built for Bharat." },
+      { property: "og:url", content: "https://aidost.lovable.app/" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "AIDost — Your AI Bestie" },
+      { name: "twitter:description", content: "24+ AI tools in one futuristic workspace. Hindi & English." },
+    ],
+    links: [{ rel: "canonical", href: "https://aidost.lovable.app/" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "SoftwareApplication",
+          name: "AIDost",
+          applicationCategory: "ProductivityApplication",
+          operatingSystem: "Web",
+          description: "Futuristic AI workspace with 24+ tools in Hindi & English.",
+          offers: { "@type": "Offer", price: "0", priceCurrency: "INR" },
+        }),
+      },
+    ],
+  }),
   component: LandingPage,
 });
 

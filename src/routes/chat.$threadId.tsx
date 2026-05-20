@@ -11,6 +11,13 @@ import { useI18n } from "@/lib/i18n";
 import { runAiTool } from "@/lib/tool-runner.functions";
 
 export const Route = createFileRoute("/chat/$threadId")({
+  head: () => ({
+    meta: [
+      { title: "Chat — AIDost" },
+      { name: "description", content: "Continue your AI conversation on AIDost." },
+      { name: "robots", content: "noindex" },
+    ],
+  }),
   component: ChatThreadPage,
 });
 
