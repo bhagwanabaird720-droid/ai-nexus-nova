@@ -1,16 +1,32 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { ArrowLeft, Send, Sparkles, Copy, RotateCcw, Download } from "lucide-react";
-import { useMemo, useState } from "react";
+import { ArrowLeft, Send, Sparkles, Copy, RotateCcw, Download, Trash2 } from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { toast } from "sonner";
 
+import { useAuth } from "@/hooks/use-auth";
+import { supabase } from "@/integrations/supabase/client";
 import { useI18n } from "@/lib/i18n";
 import { runAiTool } from "@/lib/tool-runner.functions";
 import { getTool } from "@/lib/tools-catalog";
 
-
 export const Route = createFileRoute("/tools/$toolId")({
+  head: ({ params }) => {
+    const tool = getTool(params.toolId);
+    const title = tool ? `${tool.name.en} — AIDost` : "AI Tool — AIDost";
+    const desc = tool ? `${tool.tagline.en} Use ${tool.name.en} free on AIDost in Hindi & English.` : "AI tools on AIDost.";
+    return {
+      meta: [
+        { title },
+        { name: "description", content: desc },
+        { property: "og:title", content: title },
+        { property: "og:description", content: desc },
+        { property: "og:url", content: `https://aidost.lovable.app/tools/${params.toolId}` },
+      ],
+      links: [{ rel: "canonical", href: `https://aidost.lovable.app/tools/${params.toolId}` }],
+    };
+  },
   component: ToolPage,
 });
 
@@ -19,12 +35,60 @@ type Message = { role: "user" | "assistant"; content: string; imageUrl?: string 
 function ToolPage() {
   const { toolId } = Route.useParams();
   const { lang, t } = useI18n();
+  const { user } = useAuth();
   const tool = useMemo(() => getTool(toolId), [toolId]);
   const runTool = useServerFn(runAiTool);
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState(false);
   const [lastPrompt, setLastPrompt] = useState<string>("");
+  const threadIdRef = useRef<string | null>(null);
+  const threadTitle = `__tool:${toolId}`;
+
+  // Load/create per-tool thread and history
+  useEffect(() => {
+    if (!user || !tool) return;
+    let cancelled = false;
+    void (async () => {
+      const { data: existing } = await supabase
+        .from("chat_threads")
+        .select("id")
+        .eq("user_id", user.id)
+        .eq("title", threadTitle)
+        .maybeSingle();
+      let tid = existing?.id as string | undefined;
+      if (!tid) {
+        const { data: created } = await supabase
+          .from("chat_threads")
+          .insert({ user_id: user.id, title: threadTitle })
+          .select("id")
+          .single();
+        tid = created?.id;
+      }
+      if (!tid || cancelled) return;
+      threadIdRef.current = tid;
+      const { data: rows } = await supabase
+        .from("chat_messages")
+        .select("role,content,parts,created_at")
+        .eq("thread_id", tid)
+        .order("created_at", { ascending: true })
+        .limit(100);
+      if (cancelled || !rows) return;
+      const loaded: Message[] = rows.map((r) => {
+        const parts = (r.parts as { imageUrl?: string }[] | null) ?? [];
+        const imageUrl = parts.find((p) => p?.imageUrl)?.imageUrl;
+        return {
+          role: r.role as "user" | "assistant",
+          content: r.content ?? "",
+          imageUrl,
+        };
+      });
+      setMessages(loaded);
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [user, toolId, tool, threadTitle]);
 
   if (!tool) {
     return (
@@ -43,19 +107,36 @@ function ToolPage() {
   const placeholder = lang === "hi" ? tool.inputPlaceholder?.hi : tool.inputPlaceholder?.en;
   const isImage = tool.id === "image";
 
+  async function saveMessage(msg: Message) {
+    const tid = threadIdRef.current;
+    if (!tid || !user) return;
+    const parts = msg.imageUrl ? [{ imageUrl: msg.imageUrl }] : [];
+    await supabase.from("chat_messages").insert({
+      thread_id: tid,
+      user_id: user.id,
+      role: msg.role,
+      content: msg.content,
+      parts,
+    });
+    await supabase.from("chat_threads").update({ updated_at: new Date().toISOString() }).eq("id", tid);
+  }
+
   async function runWith(text: string) {
     if (!text || !tool) return;
     setLoading(true);
     setLastPrompt(text);
-    setMessages((prev) => [...prev, { role: "user", content: text }]);
+    const userMsg: Message = { role: "user", content: text };
+    setMessages((prev) => [...prev, userMsg]);
+    void saveMessage(userMsg);
     try {
       const result = await runTool({ data: { toolId: tool.id, input: text } });
       const assistant: Message = {
         role: "assistant",
-        content: result.text || (isImage ? "" : ""),
+        content: result.text || "",
         imageUrl: (result as { imageUrl?: string }).imageUrl,
       };
       setMessages((prev) => [...prev, assistant]);
+      void saveMessage(assistant);
     } catch (error) {
       toast.error(error instanceof Error ? error.message : "AI tool failed");
     } finally {
@@ -81,6 +162,18 @@ function ToolPage() {
     toast.success(lang === "hi" ? "कॉपी हो गया" : "Copied");
   }
 
+  async function clearHistory() {
+    const tid = threadIdRef.current;
+    if (!tid || !user) {
+      setMessages([]);
+      return;
+    }
+    if (!confirm(lang === "hi" ? "सारी history हटाएँ?" : "Clear all history?")) return;
+    await supabase.from("chat_messages").delete().eq("thread_id", tid);
+    setMessages([]);
+    toast.success(lang === "hi" ? "History हटा दी" : "History cleared");
+  }
+
   return (
     <main className="relative min-h-screen overflow-hidden bg-background px-4 py-5 text-foreground sm:px-6 lg:px-8">
       <div className="aurora-bg absolute inset-0" />
@@ -96,9 +189,19 @@ function ToolPage() {
               <h1 className="font-display text-2xl font-bold">{title}</h1>
             </div>
           </div>
-          <span className="inline-flex w-fit items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs text-accent">
-            <Sparkles className="size-3.5" /> Live AI
-          </span>
+          <div className="flex items-center gap-2">
+            {messages.length > 0 && (
+              <button
+                onClick={clearHistory}
+                className="inline-flex items-center gap-1 rounded-full border border-border bg-background/40 px-3 py-1 text-xs text-muted-foreground hover:text-foreground"
+              >
+                <Trash2 className="size-3.5" /> {lang === "hi" ? "साफ़ करें" : "Clear"}
+              </button>
+            )}
+            <span className="inline-flex w-fit items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs text-accent">
+              <Sparkles className="size-3.5" /> Live AI
+            </span>
+          </div>
         </header>
 
         <section className="flex flex-1 flex-col p-4 sm:p-5">
@@ -112,6 +215,14 @@ function ToolPage() {
                 <p className="mt-3 max-w-xl text-sm text-muted-foreground">
                   {lang === "hi" ? tool.tagline.hi : tool.tagline.en}
                 </p>
+                {!user && (
+                  <p className="mt-4 text-xs text-muted-foreground">
+                    <Link to="/login" className="text-accent hover:underline">
+                      {lang === "hi" ? "लॉगिन करें" : "Log in"}
+                    </Link>{" "}
+                    {lang === "hi" ? "ताकि आपकी history सेव हो।" : "to save your history."}
+                  </p>
+                )}
               </div>
             ) : (
               messages.map((message, idx) => (

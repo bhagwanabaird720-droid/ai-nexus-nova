@@ -9,9 +9,13 @@ import { useI18n } from "@/lib/i18n";
 export const Route = createFileRoute("/chat")({
   head: () => ({
     meta: [
-      { title: "Chat Workspace — AIDost" },
-      { name: "description", content: "Threaded AI chat workspace with cloud-saved history." },
+      { title: "AI Chat Workspace — AIDost" },
+      { name: "description", content: "Threaded AI chat with cloud-saved history. Hindi, English & Hinglish — start a new conversation in seconds." },
+      { property: "og:title", content: "AI Chat Workspace — AIDost" },
+      { property: "og:description", content: "Threaded AI chat with cloud-saved history in Hindi & English." },
+      { property: "og:url", content: "https://aidost.lovable.app/chat" },
     ],
+    links: [{ rel: "canonical", href: "https://aidost.lovable.app/chat" }],
   }),
   component: ChatIndex,
 });
@@ -35,6 +39,7 @@ function ChatIndex() {
       const { data } = await supabase
         .from("chat_threads")
         .select("id,title,updated_at")
+        .not("title", "like", "__tool:%")
         .order("updated_at", { ascending: false })
         .limit(50);
       setThreads(data ?? []);
