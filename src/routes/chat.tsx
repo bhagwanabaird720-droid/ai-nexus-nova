@@ -39,6 +39,7 @@ function ChatIndex() {
       const { data } = await supabase
         .from("chat_threads")
         .select("id,title,updated_at")
+        .not("title", "like", "__tool:%")
         .order("updated_at", { ascending: false })
         .limit(50);
       setThreads(data ?? []);
