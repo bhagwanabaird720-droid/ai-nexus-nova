@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+# Auth pages — no SEO value
+Disallow: /login
+Disallow: /signup
+
+# Private chat threads — disallow individual threads, keep /chat allowed
+Disallow: /chat/
+
+# Sitemap discovery
+Sitemap: https://aidost.lovable.app/sitemap.xml
