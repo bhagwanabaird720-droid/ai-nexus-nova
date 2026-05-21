@@ -67,7 +67,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "AIDost is a futuristic AI SaaS platform with 13+ tools — chat, homework solver, resume builder, image generator and more. Built for Bharat in Hindi & English.",
       },
       { name: "author", content: "AIDost" },
-      { name: "google-site-verification", content: "CDPJ6sExwBZ-R5utAsz70jk7VqAJ3sEvxyGNs5k4W2Y" },
+      { name: "google-site-verification", content: "ipw0c0yqoAEj9EK8jPYOXidrGsNhYNekZuQjYlFS76M" },
       { property: "og:title", content: "AIDost — Your AI Bestie" },
       {
         property: "og:description",
