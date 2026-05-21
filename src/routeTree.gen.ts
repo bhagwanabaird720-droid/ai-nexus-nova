@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TermsRouteImport } from './routes/terms'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SignupRouteImport } from './routes/signup'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as PrivacyRouteImport } from './routes/privacy'
@@ -25,6 +26,11 @@ import { Route as ChatThreadIdRouteImport } from './routes/chat.$threadId'
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
   path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SignupRoute = SignupRouteImport.update({
@@ -93,6 +99,7 @@ export interface FileRoutesByFullPath {
   '/privacy': typeof PrivacyRoute
   '/settings': typeof SettingsRoute
   '/signup': typeof SignupRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/chat/$threadId': typeof ChatThreadIdRoute
   '/tools/$toolId': typeof ToolsToolIdRoute
@@ -107,6 +114,7 @@ export interface FileRoutesByTo {
   '/privacy': typeof PrivacyRoute
   '/settings': typeof SettingsRoute
   '/signup': typeof SignupRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/chat/$threadId': typeof ChatThreadIdRoute
   '/tools/$toolId': typeof ToolsToolIdRoute
@@ -122,6 +130,7 @@ export interface FileRoutesById {
   '/privacy': typeof PrivacyRoute
   '/settings': typeof SettingsRoute
   '/signup': typeof SignupRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/chat/$threadId': typeof ChatThreadIdRoute
   '/tools/$toolId': typeof ToolsToolIdRoute
@@ -138,6 +147,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/settings'
     | '/signup'
+    | '/sitemap.xml'
     | '/terms'
     | '/chat/$threadId'
     | '/tools/$toolId'
@@ -152,6 +162,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/settings'
     | '/signup'
+    | '/sitemap.xml'
     | '/terms'
     | '/chat/$threadId'
     | '/tools/$toolId'
@@ -166,6 +177,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/settings'
     | '/signup'
+    | '/sitemap.xml'
     | '/terms'
     | '/chat/$threadId'
     | '/tools/$toolId'
@@ -181,6 +193,7 @@ export interface RootRouteChildren {
   PrivacyRoute: typeof PrivacyRoute
   SettingsRoute: typeof SettingsRoute
   SignupRoute: typeof SignupRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TermsRoute: typeof TermsRoute
   ToolsToolIdRoute: typeof ToolsToolIdRoute
 }
@@ -192,6 +205,13 @@ declare module '@tanstack/react-router' {
       path: '/terms'
       fullPath: '/terms'
       preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/signup': {
@@ -294,6 +314,7 @@ const rootRouteChildren: RootRouteChildren = {
   PrivacyRoute: PrivacyRoute,
   SettingsRoute: SettingsRoute,
   SignupRoute: SignupRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   TermsRoute: TermsRoute,
   ToolsToolIdRoute: ToolsToolIdRoute,
 }
