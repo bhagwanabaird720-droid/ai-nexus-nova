@@ -46,7 +46,7 @@ export const Route = createFileRoute("/")({
 function Hero() {
   const { t, lang } = useI18n();
   return (
-    <header className="relative overflow-hidden px-6 pt-20 pb-28">
+    <header className="relative overflow-hidden px-4 pt-12 pb-20 sm:px-6 sm:pt-20 sm:pb-28">
       <div className="grid-overlay absolute inset-0 opacity-60" />
       <div className="aurora-bg absolute inset-0" />
       <div className="relative mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-12">
