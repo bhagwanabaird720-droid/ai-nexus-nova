@@ -41,63 +41,7 @@ export const Route = createFileRoute("/")({
   component: LandingPage,
 });
 
-function LangToggle() {
-  const { lang, setLang } = useI18n();
-  const opts: Lang[] = ["en", "hi"];
-  return (
-    <div className="inline-flex items-center rounded-full border border-border bg-surface/60 p-0.5 text-xs">
-      {opts.map((l) => (
-        <button
-          key={l}
-          onClick={() => setLang(l)}
-          className={`rounded-full px-3 py-1 font-medium transition-colors ${
-            lang === l ? "bg-gradient-aurora text-primary-foreground" : "text-muted-foreground hover:text-foreground"
-          }`}
-        >
-          {l === "en" ? "EN" : "हिं"}
-        </button>
-      ))}
-    </div>
-  );
-}
-
-function Nav() {
-  const { t, lang } = useI18n();
-  const { user } = useAuth();
-  return (
-    <nav className="sticky top-0 z-50 border-b border-border/60 bg-background/70 backdrop-blur-xl">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
-        <Link to="/" className="flex items-center gap-2">
-          <div className="size-8 rounded-lg bg-gradient-aurora glow-aurora" />
-          <span className="font-display text-lg font-bold tracking-tight">AIDost</span>
-        </Link>
-        <div className="hidden items-center gap-7 text-sm font-medium text-muted-foreground md:flex">
-          <a href="#tools" className="transition-colors hover:text-foreground">{t("nav.tools")}</a>
-          <Link to="/about" className="transition-colors hover:text-foreground">{t("nav.about")}</Link>
-          <Link to="/contact" className="transition-colors hover:text-foreground">{t("nav.contact")}</Link>
-        </div>
-        <div className="flex items-center gap-3">
-          <LangToggle />
-          {user ? (
-            <button
-              onClick={() => signOut()}
-              className="rounded-full border border-border bg-surface/50 px-4 py-2 text-sm font-semibold text-foreground hover:bg-surface"
-            >
-              {lang === "hi" ? "लॉग आउट" : "Log out"}
-            </button>
-          ) : (
-            <Link
-              to="/login"
-              className="rounded-full border border-border bg-surface/50 px-4 py-2 text-sm font-semibold text-foreground hover:bg-surface"
-            >
-              {t("nav.login")}
-            </Link>
-          )}
-        </div>
-      </div>
-    </nav>
-  );
-}
+// Nav and LangToggle moved to src/components/site-nav.tsx
 
 function Hero() {
   const { t, lang } = useI18n();
