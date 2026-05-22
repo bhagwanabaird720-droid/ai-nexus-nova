@@ -273,7 +273,7 @@ function CTA() {
 function LandingPage() {
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <Nav />
+      <SiteNav />
       <Hero />
       <Features />
       <ToolsGrid />
