@@ -1,0 +1,13 @@
+{
+  "name": "AIVIO — Your AI Bestie",
+  "short_name": "AIVIO",
+  "description": "AIVIO is a futuristic AI workspace with 24+ tools — chat, homework solver, resume builder, image generator and more. Built for Bharat in Hindi & English.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0f",
+  "theme_color": "#7c3aed",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
