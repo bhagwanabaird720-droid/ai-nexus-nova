@@ -98,7 +98,7 @@ function Hero() {
             <div className="absolute inset-x-4 bottom-4 flex items-center justify-between rounded-2xl border border-border bg-background/70 px-4 py-3 backdrop-blur-md">
               <div className="flex items-center gap-2 text-xs">
                 <Sparkle className="size-4 text-accent" />
-                <span className="font-medium">{lang === "hi" ? "दोस्त इंजन 2.0" : "Dost Engine 2.0"}</span>
+                <span className="font-medium">{lang === "hi" ? "AIVIO इंजन 2.0" : "AIVIO Engine 2.0"}</span>
               </div>
               <span className="text-[10px] uppercase tracking-widest text-muted-foreground">Live</span>
             </div>

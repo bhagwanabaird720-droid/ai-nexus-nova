@@ -14,7 +14,7 @@ const dict: Dict = {
   "nav.dashboard": { en: "Dashboard", hi: "डैशबोर्ड" },
   "nav.settings": { en: "Settings", hi: "सेटिंग्स" },
   "nav.logout": { en: "Log out", hi: "लॉग आउट" },
-  "hero.badge": { en: "Now live: Dost Engine 2.0", hi: "नया: दोस्त इंजन 2.0" },
+  "hero.badge": { en: "Now live: AIVIO Engine 2.0", hi: "नया: AIVIO इंजन 2.0" },
   "hero.title.a": { en: "Your AI Bestie.", hi: "आपका AI साथी।" },
   "hero.title.b": { en: "आपका AI दोस्त।", hi: "Built in Bharat." },
   "hero.subtitle": {
