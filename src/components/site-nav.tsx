@@ -58,9 +58,9 @@ export function SiteNav() {
     <>
       <nav className="sticky top-0 z-50 border-b border-border/60 bg-background/70 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-3 px-4 sm:px-6">
-          <Link to="/" className="flex items-center gap-2" aria-label="AIDost home">
+          <Link to="/" className="flex items-center gap-2" aria-label="AIVIO home">
             <div className="size-8 rounded-lg bg-gradient-aurora glow-aurora" />
-            <span className="font-display text-lg font-bold tracking-tight">AIDost</span>
+            <span className="font-display text-lg font-bold tracking-tight">AIVIO</span>
           </Link>
 
           <div className="hidden items-center gap-1 text-sm font-medium text-muted-foreground md:flex">
@@ -115,7 +115,7 @@ export function SiteNav() {
             <div className="mb-8 flex items-center justify-between">
               <Link to="/" onClick={() => setOpen(false)} className="flex items-center gap-2">
                 <div className="size-7 rounded-lg bg-gradient-aurora glow-aurora" />
-                <span className="font-display text-base font-bold">AIDost</span>
+                <span className="font-display text-base font-bold">AIVIO</span>
               </Link>
               <button
                 onClick={() => setOpen(false)}

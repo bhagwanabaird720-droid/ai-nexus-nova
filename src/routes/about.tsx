@@ -3,8 +3,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About AIDost — Your AI Bestie for Bharat" },
-      { name: "description", content: "AIDost is a futuristic AI SaaS platform built for Hindi & English creators, students and professionals across India." },
+      { title: "About AIVIO — Your AI Bestie for Bharat" },
+      { name: "description", content: "AIVIO is a futuristic AI SaaS platform built for Hindi & English creators, students and professionals across India." },
     ],
   }),
   component: AboutPage,
@@ -16,9 +16,9 @@ function AboutPage() {
       <div className="aurora-bg absolute inset-0" />
       <div className="relative mx-auto max-w-3xl">
         <Link to="/" className="text-xs text-muted-foreground hover:text-foreground">← Back home</Link>
-        <h1 className="mt-6 font-display text-5xl font-bold">About <span className="text-gradient-aurora">AIDost</span></h1>
+        <h1 className="mt-6 font-display text-5xl font-bold">About <span className="text-gradient-aurora">AIVIO</span></h1>
         <p className="mt-6 text-lg text-muted-foreground">
-          AIDost (आपका AI दोस्त) is a futuristic AI workspace built for India. We combine the power of modern
+          AIVIO (आपका AI दोस्त) is a futuristic AI workspace built for India. We combine the power of modern
           large language models with a fast, beautiful, Hindi-first interface so anyone can chat, create, study
           and ship — without friction.
         </p>

@@ -9,13 +9,13 @@ import { useI18n } from "@/lib/i18n";
 export const Route = createFileRoute("/chat")({
   head: () => ({
     meta: [
-      { title: "AI Chat Workspace — AIDost" },
+      { title: "AI Chat Workspace — AIVIO" },
       { name: "description", content: "Threaded AI chat with cloud-saved history. Hindi, English & Hinglish — start a new conversation in seconds." },
-      { property: "og:title", content: "AI Chat Workspace — AIDost" },
+      { property: "og:title", content: "AI Chat Workspace — AIVIO" },
       { property: "og:description", content: "Threaded AI chat with cloud-saved history in Hindi & English." },
-      { property: "og:url", content: "https://aidost.lovable.app/chat" },
+      { property: "og:url", content: "https://aivio.lovable.app/chat" },
     ],
-    links: [{ rel: "canonical", href: "https://aidost.lovable.app/chat" }],
+    links: [{ rel: "canonical", href: "https://aivio.lovable.app/chat" }],
   }),
   component: ChatIndex,
 });

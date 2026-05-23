@@ -10,8 +10,8 @@ import { TOOLS, ACCENT_CLASSES, getTool } from "@/lib/tools-catalog";
 export const Route = createFileRoute("/dashboard")({
   head: () => ({
     meta: [
-      { title: "Dashboard — AIDost" },
-      { name: "description", content: "Your AIDost workspace: chats, favorites and usage." },
+      { title: "Dashboard — AIVIO" },
+      { name: "description", content: "Your AIVIO workspace: chats, favorites and usage." },
     ],
   }),
   component: DashboardPage,
@@ -39,7 +39,7 @@ function DashboardPage() {
       setThreadCount(tc ?? 0);
       setMsgCount(mc ?? 0);
     })();
-    setFavorites(JSON.parse(localStorage.getItem("aidost.favorites") || "[]"));
+    setFavorites(JSON.parse(localStorage.getItem("aivio.favorites") || "[]"));
   }, [user, loading, navigate]);
 
   const favTools = favorites.map(getTool).filter((t): t is NonNullable<ReturnType<typeof getTool>> => Boolean(t));

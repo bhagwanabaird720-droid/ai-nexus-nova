@@ -60,15 +60,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "AIDost — Your AI Bestie | 13+ AI Tools in Hindi & English" },
+      { title: "AIVIO — Your AI Bestie | 13+ AI Tools in Hindi & English" },
       {
         name: "description",
         content:
-          "AIDost is a futuristic AI SaaS platform with 13+ tools — chat, homework solver, resume builder, image generator and more. Built for Bharat in Hindi & English.",
+          "AIVIO is a futuristic AI SaaS platform with 13+ tools — chat, homework solver, resume builder, image generator and more. Built for Bharat in Hindi & English.",
       },
-      { name: "author", content: "AIDost" },
+      { name: "author", content: "AIVIO" },
       { name: "google-site-verification", content: "ipw0c0yqoAEj9EK8jPYOXidrGsNhYNekZuQjYlFS76M" },
-      { property: "og:title", content: "AIDost — Your AI Bestie" },
+      { property: "og:title", content: "AIVIO — Your AI Bestie" },
       {
         property: "og:description",
         content: "13+ AI tools in one futuristic workspace. Hindi & English.",

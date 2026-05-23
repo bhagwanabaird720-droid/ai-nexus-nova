@@ -6,8 +6,8 @@ import { Mail, MessageCircle } from "lucide-react";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact AIDost — Get in touch" },
-      { name: "description", content: "Questions, feedback or partnerships? Reach the AIDost team." },
+      { title: "Contact AIVIO — Get in touch" },
+      { name: "description", content: "Questions, feedback or partnerships? Reach the AIVIO team." },
     ],
   }),
   component: ContactPage,
@@ -27,7 +27,7 @@ function ContactPage() {
           <div className="rounded-2xl border border-border bg-surface/60 p-5">
             <Mail className="size-5 text-accent" />
             <div className="mt-3 text-sm font-medium">Email</div>
-            <div className="text-xs text-muted-foreground">hello@aidost.app</div>
+            <div className="text-xs text-muted-foreground">hello@aivio.app</div>
           </div>
           <div className="rounded-2xl border border-border bg-surface/60 p-5">
             <MessageCircle className="size-5 text-accent" />
