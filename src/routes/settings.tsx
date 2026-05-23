@@ -10,8 +10,8 @@ import { useI18n } from "@/lib/i18n";
 export const Route = createFileRoute("/settings")({
   head: () => ({
     meta: [
-      { title: "Settings — AIDost" },
-      { name: "description", content: "Manage your AIDost profile, language, and account." },
+      { title: "Settings — AIVIO" },
+      { name: "description", content: "Manage your AIVIO profile, language, and account." },
     ],
   }),
   component: SettingsPage,

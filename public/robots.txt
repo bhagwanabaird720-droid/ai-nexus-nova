@@ -9,4 +9,4 @@ Disallow: /signup
 Disallow: /chat/
 
 # Sitemap discovery
-Sitemap: https://aidost.lovable.app/sitemap.xml
+Sitemap: https://aivio.lovable.app/sitemap.xml

@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
 import { TOOLS } from "@/lib/tools-catalog";
 
-const BASE_URL = "https://aidost.lovable.app";
+const BASE_URL = "https://aivio.lovable.app";
 
 interface SitemapEntry {
   path: string;

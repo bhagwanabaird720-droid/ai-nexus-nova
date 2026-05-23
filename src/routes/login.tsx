@@ -6,7 +6,7 @@ import { lovable } from "@/integrations/lovable";
 import { useI18n } from "@/lib/i18n";
 
 export const Route = createFileRoute("/login")({
-  head: () => ({ meta: [{ title: "Log in — AIDost" }, { name: "description", content: "Log in to AIDost." }] }),
+  head: () => ({ meta: [{ title: "Log in — AIVIO" }, { name: "description", content: "Log in to AIVIO." }] }),
   component: LoginPage,
 });
 

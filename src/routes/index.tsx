@@ -11,25 +11,25 @@ import { SiteNav } from "@/components/site-nav";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "AIDost — Your AI Bestie | 24+ AI Tools in Hindi & English" },
-      { name: "description", content: "AIDost is a futuristic AI workspace for Bharat — chat, homework, resume, captions, reels, image generation and 20+ more tools in Hindi & English." },
-      { name: "keywords", content: "AI tools, Hindi AI, AI chat, resume builder, AI image generator, YouTube titles, reel script, hashtag generator, AIDost" },
-      { property: "og:title", content: "AIDost — 24+ AI Tools in Hindi & English" },
+      { title: "AIVIO — Your AI Bestie | 24+ AI Tools in Hindi & English" },
+      { name: "description", content: "AIVIO is a futuristic AI workspace for Bharat — chat, homework, resume, captions, reels, image generation and 20+ more tools in Hindi & English." },
+      { name: "keywords", content: "AI tools, Hindi AI, AI chat, resume builder, AI image generator, YouTube titles, reel script, hashtag generator, AIVIO" },
+      { property: "og:title", content: "AIVIO — 24+ AI Tools in Hindi & English" },
       { property: "og:description", content: "One futuristic workspace for chat, study, writing, social and creator tools — built for Bharat." },
-      { property: "og:url", content: "https://aidost.lovable.app/" },
+      { property: "og:url", content: "https://aivio.lovable.app/" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "AIDost — Your AI Bestie" },
+      { name: "twitter:title", content: "AIVIO — Your AI Bestie" },
       { name: "twitter:description", content: "24+ AI tools in one futuristic workspace. Hindi & English." },
     ],
-    links: [{ rel: "canonical", href: "https://aidost.lovable.app/" }],
+    links: [{ rel: "canonical", href: "https://aivio.lovable.app/" }],
     scripts: [
       {
         type: "application/ld+json",
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "SoftwareApplication",
-          name: "AIDost",
+          name: "AIVIO",
           applicationCategory: "ProductivityApplication",
           operatingSystem: "Web",
           description: "Futuristic AI workspace with 24+ tools in Hindi & English.",
@@ -90,7 +90,7 @@ function Hero() {
           <div className="relative overflow-hidden rounded-3xl border border-border bg-surface shadow-2xl">
             <img
               src={heroImg}
-              alt="AIDost neural aurora visualization"
+              alt="AIVIO neural aurora visualization"
               width={1536}
               height={1024}
               className="h-auto w-full"
@@ -98,7 +98,7 @@ function Hero() {
             <div className="absolute inset-x-4 bottom-4 flex items-center justify-between rounded-2xl border border-border bg-background/70 px-4 py-3 backdrop-blur-md">
               <div className="flex items-center gap-2 text-xs">
                 <Sparkle className="size-4 text-accent" />
-                <span className="font-medium">{lang === "hi" ? "दोस्त इंजन 2.0" : "Dost Engine 2.0"}</span>
+                <span className="font-medium">{lang === "hi" ? "AIVIO इंजन 2.0" : "AIVIO Engine 2.0"}</span>
               </div>
               <span className="text-[10px] uppercase tracking-widest text-muted-foreground">Live</span>
             </div>
@@ -255,8 +255,8 @@ function CTA() {
         </h2>
         <p className="mx-auto mt-3 max-w-lg text-muted-foreground">
           {lang === "hi"
-            ? "बिना signup flow में फँसे AIDost workspace खोलें और AI response देखें।"
-            : "Open the AIDost workspace and check AI responses without getting stuck in signup."}
+            ? "बिना signup flow में फँसे AIVIO workspace खोलें और AI response देखें।"
+            : "Open the AIVIO workspace and check AI responses without getting stuck in signup."}
         </p>
         <a
           href="#tools"

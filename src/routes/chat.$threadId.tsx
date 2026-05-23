@@ -27,8 +27,8 @@ import { runAiTool } from "@/lib/tool-runner.functions";
 export const Route = createFileRoute("/chat/$threadId")({
   head: () => ({
     meta: [
-      { title: "Chat — AIDost" },
-      { name: "description", content: "Continue your AI conversation on AIDost." },
+      { title: "Chat — AIVIO" },
+      { name: "description", content: "Continue your AI conversation on AIVIO." },
       { name: "robots", content: "noindex" },
     ],
   }),
@@ -271,7 +271,7 @@ function ChatThreadPage() {
           <div className="flex size-7 items-center justify-center rounded-full bg-gradient-aurora text-[10px] font-bold text-primary-foreground">
             {(user?.email?.[0] ?? "A").toUpperCase()}
           </div>
-          <span className="truncate">{user?.email ?? "AIDost"}</span>
+          <span className="truncate">{user?.email ?? "AIVIO"}</span>
         </div>
       </div>
     </div>
@@ -319,7 +319,7 @@ function ChatThreadPage() {
                 <h1 className="font-display text-sm font-bold sm:text-base">
                   {lang === "hi" ? "AI दोस्त" : "AI Bestie"}
                 </h1>
-                <p className="text-[10px] uppercase tracking-widest text-accent">AIDost Chat</p>
+                <p className="text-[10px] uppercase tracking-widest text-accent">AIVIO Chat</p>
               </div>
             </div>
           </div>
@@ -359,7 +359,7 @@ function ChatThreadPage() {
                 <p className="mt-2 max-w-md text-sm text-muted-foreground">
                   {lang === "hi"
                     ? "हिंदी, अंग्रेज़ी या Hinglish — कुछ भी पूछें।"
-                    : "Ask in Hindi, English, or Hinglish. AIDost has your back."}
+                    : "Ask in Hindi, English, or Hinglish. AIVIO has your back."}
                 </p>
 
                 <div className="mt-8 grid w-full max-w-2xl grid-cols-1 gap-2.5 sm:grid-cols-2">
@@ -418,7 +418,7 @@ function ChatThreadPage() {
                   }
                 }}
                 placeholder={
-                  lang === "hi" ? "AIDost से कुछ भी पूछें…" : "Message AIDost…"
+                  lang === "hi" ? "AIVIO से कुछ भी पूछें…" : "Message AIVIO…"
                 }
                 rows={1}
                 className="max-h-[200px] min-h-[40px] flex-1 resize-none bg-transparent px-3 py-2 text-sm outline-none placeholder:text-muted-foreground"
@@ -433,8 +433,8 @@ function ChatThreadPage() {
             </div>
             <p className="mt-2 text-center text-[10px] text-muted-foreground">
               {lang === "hi"
-                ? "AIDost गलतियाँ कर सकता है। ज़रूरी जानकारी verify करें।"
-                : "AIDost can make mistakes. Verify important info."}
+                ? "AIVIO गलतियाँ कर सकता है। ज़रूरी जानकारी verify करें।"
+                : "AIVIO can make mistakes. Verify important info."}
             </p>
           </form>
         </div>
@@ -479,7 +479,7 @@ function MessageRow({
       <Avatar role={message.role} userEmail={userEmail} />
       <div className="min-w-0 flex-1">
         <p className="mb-1 text-xs font-semibold text-muted-foreground">
-          {isUser ? (lang === "hi" ? "आप" : "You") : "AIDost"}
+          {isUser ? (lang === "hi" ? "आप" : "You") : "AIVIO"}
         </p>
         <div
           className={`prose prose-invert prose-sm max-w-none rounded-2xl px-4 py-3 text-sm leading-relaxed ${

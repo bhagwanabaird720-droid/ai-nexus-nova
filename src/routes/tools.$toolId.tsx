@@ -14,17 +14,17 @@ import { getTool } from "@/lib/tools-catalog";
 export const Route = createFileRoute("/tools/$toolId")({
   head: ({ params }) => {
     const tool = getTool(params.toolId);
-    const title = tool ? `${tool.name.en} — AIDost` : "AI Tool — AIDost";
-    const desc = tool ? `${tool.tagline.en} Use ${tool.name.en} free on AIDost in Hindi & English.` : "AI tools on AIDost.";
+    const title = tool ? `${tool.name.en} — AIVIO` : "AI Tool — AIVIO";
+    const desc = tool ? `${tool.tagline.en} Use ${tool.name.en} free on AIVIO in Hindi & English.` : "AI tools on AIVIO.";
     return {
       meta: [
         { title },
         { name: "description", content: desc },
         { property: "og:title", content: title },
         { property: "og:description", content: desc },
-        { property: "og:url", content: `https://aidost.lovable.app/tools/${params.toolId}` },
+        { property: "og:url", content: `https://aivio.lovable.app/tools/${params.toolId}` },
       ],
-      links: [{ rel: "canonical", href: `https://aidost.lovable.app/tools/${params.toolId}` }],
+      links: [{ rel: "canonical", href: `https://aivio.lovable.app/tools/${params.toolId}` }],
     };
   },
   component: ToolPage,
@@ -185,7 +185,7 @@ function ToolPage() {
               <ArrowLeft className="size-4" />
             </Link>
             <div>
-              <p className="text-xs uppercase tracking-widest text-accent">AIDost Tool</p>
+              <p className="text-xs uppercase tracking-widest text-accent">AIVIO Tool</p>
               <h1 className="font-display text-2xl font-bold">{title}</h1>
             </div>
           </div>
@@ -239,7 +239,7 @@ function ToolPage() {
                         <img src={message.imageUrl} alt="Generated" className="rounded-xl border border-border" />
                         <a
                           href={message.imageUrl}
-                          download="aidost-image.png"
+                          download="aivio-image.png"
                           className="mt-2 inline-flex items-center gap-1 text-xs text-accent hover:underline"
                         >
                           <Download className="size-3.5" /> {lang === "hi" ? "डाउनलोड" : "Download"}
@@ -263,7 +263,7 @@ function ToolPage() {
                 </div>
               ))
             )}
-            {loading && <div className="text-sm text-muted-foreground">AIDost {lang === "hi" ? "सोच रहा है…" : "is thinking…"}</div>}
+            {loading && <div className="text-sm text-muted-foreground">AIVIO {lang === "hi" ? "सोच रहा है…" : "is thinking…"}</div>}
           </div>
 
           <form onSubmit={submit} className="mt-4 flex gap-3">

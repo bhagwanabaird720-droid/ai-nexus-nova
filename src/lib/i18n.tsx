@@ -14,14 +14,14 @@ const dict: Dict = {
   "nav.dashboard": { en: "Dashboard", hi: "डैशबोर्ड" },
   "nav.settings": { en: "Settings", hi: "सेटिंग्स" },
   "nav.logout": { en: "Log out", hi: "लॉग आउट" },
-  "hero.badge": { en: "Now live: Dost Engine 2.0", hi: "नया: दोस्त इंजन 2.0" },
+  "hero.badge": { en: "Now live: AIVIO Engine 2.0", hi: "नया: AIVIO इंजन 2.0" },
   "hero.title.a": { en: "Your AI Bestie.", hi: "आपका AI साथी।" },
   "hero.title.b": { en: "आपका AI दोस्त।", hi: "Built in Bharat." },
   "hero.subtitle": {
     en: "13+ AI tools in one futuristic workspace — chat, write, study, design and ship faster. Powerful like ChatGPT, intuitive like Canva.",
     hi: "एक ही मंच पर 13+ AI उपकरण — बातचीत, लेखन, पढ़ाई और रचनात्मकता। ChatGPT जैसा शक्तिशाली, Canva जैसा सरल।",
   },
-  "hero.cta.primary": { en: "Try AIDost Free", hi: "मुफ़्त आज़माएँ" },
+  "hero.cta.primary": { en: "Try AIVIO Free", hi: "मुफ़्त आज़माएँ" },
   "hero.cta.secondary": { en: "Open Dashboard", hi: "डैशबोर्ड देखें" },
   "tools.heading": { en: "AI Toolbox", hi: "AI टूलबॉक्स" },
   "tools.search": { en: "Search tools…", hi: "उपकरण खोजें…" },
@@ -37,13 +37,13 @@ const dict: Dict = {
   "auth.or": { en: "or", hi: "या" },
   "auth.haveAccount": { en: "Already have an account?", hi: "पहले से खाता है?" },
   "auth.noAccount": { en: "Don't have an account?", hi: "खाता नहीं है?" },
-  "chat.placeholder": { en: "Ask AIDost anything…", hi: "AIDost से कुछ भी पूछें…" },
+  "chat.placeholder": { en: "Ask AIVIO anything…", hi: "AIVIO से कुछ भी पूछें…" },
   "chat.new": { en: "New chat", hi: "नई चैट" },
   "chat.threads": { en: "Conversations", hi: "बातचीत" },
   "chat.empty": { en: "Start a conversation", hi: "बातचीत शुरू करें" },
   "chat.emptySub": {
-    en: "Your AIDost is ready in Hindi & English.",
-    hi: "आपका AIDost हिंदी और अंग्रेज़ी में तैयार है।",
+    en: "Your AIVIO is ready in Hindi & English.",
+    hi: "आपका AIVIO हिंदी और अंग्रेज़ी में तैयार है।",
   },
   "settings.title": { en: "Settings", hi: "सेटिंग्स" },
   "settings.profile": { en: "Profile", hi: "प्रोफ़ाइल" },
@@ -64,13 +64,13 @@ export function I18nProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    const saved = (localStorage.getItem("aidost.lang") as Lang | null) ?? "en";
+    const saved = (localStorage.getItem("aivio.lang") as Lang | null) ?? "en";
     setLangState(saved);
   }, []);
 
   const setLang = (l: Lang) => {
     setLangState(l);
-    if (typeof window !== "undefined") localStorage.setItem("aidost.lang", l);
+    if (typeof window !== "undefined") localStorage.setItem("aivio.lang", l);
   };
 
   const t = (key: string) => {

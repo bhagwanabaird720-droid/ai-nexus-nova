@@ -35,7 +35,7 @@ export function SiteFooter() {
     { href: "https://twitter.com", icon: Twitter, label: "Twitter" },
     { href: "https://instagram.com", icon: Instagram, label: "Instagram" },
     { href: "https://github.com", icon: Github, label: "GitHub" },
-    { href: "mailto:hello@aidost.app", icon: Mail, label: "Email" },
+    { href: "mailto:hello@aivio.app", icon: Mail, label: "Email" },
   ];
 
   return (
@@ -46,7 +46,7 @@ export function SiteFooter() {
           <div className="md:col-span-5">
             <Link to="/" className="flex items-center gap-2.5">
               <div className="size-8 rounded-lg bg-gradient-aurora glow-aurora" />
-              <span className="font-display text-lg font-bold tracking-tight">AIDost</span>
+              <span className="font-display text-lg font-bold tracking-tight">AIVIO</span>
             </Link>
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground">
               {lang === "hi"
@@ -90,7 +90,7 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-14 flex flex-col items-center justify-between gap-3 border-t border-border/60 pt-6 text-xs text-muted-foreground sm:flex-row">
-          <p>© {new Date().getFullYear()} AIDost. {t("footer.tag")}</p>
+          <p>© {new Date().getFullYear()} AIVIO. {t("footer.tag")}</p>
           <p className="opacity-80">{lang === "hi" ? "भारत में बनाया गया" : "Made in Bharat"} ✦</p>
         </div>
       </div>
