@@ -1,5 +1,3 @@
-import logo from "./assets/favicon.png";
-
 export default function App() {
   return (
     <div
@@ -29,7 +27,7 @@ export default function App() {
           }}
         >
           <img
-            src={logo}
+         src="/favicon.png"
             alt="AIVIO"
             style={{
               width: "45px",
