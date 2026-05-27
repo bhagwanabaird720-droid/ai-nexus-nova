@@ -1,41 +1,65 @@
+import logo from "./assets/favicon.png";
+
 export default function App() {
   return (
     <div
       style={{
-        minHeight: "100vh",
         background:
-          "radial-gradient(circle at top, #312e81 0%, #000000 65%)",
+          "radial-gradient(circle at top, #3b1fa1 0%, #0a0a0a 60%)",
         color: "white",
+        minHeight: "100vh",
+        padding: "20px",
         fontFamily: "Arial, sans-serif",
       }}
     >
       {/* Navbar */}
-      <nav
+      <div
         style={{
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          padding: "20px 40px",
-          borderBottom: "1px solid rgba(255,255,255,0.08)",
-          backdropFilter: "blur(10px)",
+          marginBottom: "100px",
         }}
       >
-        <h1
+        <div
           style={{
-            fontSize: "28px",
-            fontWeight: "bold",
-            letterSpacing: "1px",
+            display: "flex",
+            alignItems: "center",
+            gap: "12px",
           }}
         >
-          AI Nexus Nova
-        </h1>
+          <img
+            src={logo}
+            alt="AIVIO"
+            style={{
+              width: "45px",
+              height: "45px",
+              borderRadius: "12px",
+              boxShadow: "0 0 20px #7c3aed",
+            }}
+          />
 
-        <div style={{ display: "flex", gap: "14px" }}>
+          <h1
+            style={{
+              fontSize: "28px",
+              margin: 0,
+            }}
+          >
+            AIVIO
+          </h1>
+        </div>
+
+        <div
+          style={{
+            display: "flex",
+            gap: "15px",
+          }}
+        >
           <button
             style={{
               background: "transparent",
+              border: "1px solid #555",
               color: "white",
-              border: "1px solid rgba(255,255,255,0.2)",
               padding: "10px 18px",
               borderRadius: "12px",
               cursor: "pointer",
@@ -47,88 +71,81 @@ export default function App() {
           <button
             style={{
               background: "#7c3aed",
-              color: "white",
               border: "none",
-              padding: "10px 18px",
+              color: "white",
+              padding: "10px 20px",
               borderRadius: "12px",
               cursor: "pointer",
-              fontWeight: "bold",
+              boxShadow: "0 0 20px #7c3aed",
             }}
           >
             Get Started
           </button>
         </div>
-      </nav>
+      </div>
 
-      {/* Hero */}
-      <section
+      {/* Hero Section */}
+      <div
         style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
           textAlign: "center",
-          padding: "120px 20px",
+          marginTop: "80px",
         }}
       >
-        <div
+        <p
           style={{
-            background: "rgba(124,58,237,0.15)",
-            border: "1px solid rgba(255,255,255,0.08)",
-            padding: "10px 20px",
-            borderRadius: "999px",
-            marginBottom: "30px",
-            fontSize: "14px",
-            color: "#c4b5fd",
+            color: "#c084fc",
+            marginBottom: "20px",
+            fontSize: "18px",
           }}
         >
           🚀 Futuristic AI SaaS Platform
-        </div>
+        </p>
 
-        <h1
+        <h2
           style={{
-            fontSize: "64px",
-            fontWeight: "bold",
-            maxWidth: "950px",
+            fontSize: "60px",
+            marginBottom: "20px",
             lineHeight: "1.1",
-            marginBottom: "24px",
           }}
         >
-          Create Faster With Powerful AI Tools
-        </h1>
+          Create Faster With
+          <br />
+          Powerful AI Tools
+        </h2>
 
         <p
           style={{
+            color: "#b3b3b3",
+            maxWidth: "700px",
+            margin: "0 auto",
             fontSize: "20px",
-            color: "#cbd5e1",
-            maxWidth: "760px",
-            lineHeight: "1.7",
+            lineHeight: "1.8",
           }}
         >
-          AI Nexus Nova helps creators, students, businesses and developers
-          generate ideas, content, AI chats, scripts and much more with a
-          premium futuristic experience.
+          AIVIO helps creators, students, businesses and developers
+          generate ideas, AI chats, content and much more with a
+          futuristic premium experience.
         </p>
 
         <div
           style={{
-            display: "flex",
-            gap: "18px",
             marginTop: "40px",
-            flexWrap: "wrap",
+            display: "flex",
             justifyContent: "center",
+            gap: "20px",
+            flexWrap: "wrap",
           }}
         >
           <button
             style={{
               background: "#7c3aed",
-              color: "white",
               border: "none",
-              padding: "16px 30px",
+              color: "white",
+              padding: "16px 28px",
               borderRadius: "14px",
               fontSize: "18px",
-              fontWeight: "bold",
               cursor: "pointer",
+              boxShadow: "0 0 25px #7c3aed",
             }}
           >
             Start Free
@@ -137,9 +154,9 @@ export default function App() {
           <button
             style={{
               background: "transparent",
+              border: "1px solid #555",
               color: "white",
-              border: "1px solid rgba(255,255,255,0.2)",
-              padding: "16px 30px",
+              padding: "16px 28px",
               borderRadius: "14px",
               fontSize: "18px",
               cursor: "pointer",
@@ -148,55 +165,7 @@ export default function App() {
             Explore Features
           </button>
         </div>
-      </section>
-
-      {/* Features */}
-      <section
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-          gap: "24px",
-          padding: "40px",
-        }}
-      >
-        {[
-          "AI Chat Assistant",
-          "Image Generation",
-          "Content Writing",
-          "Study Tools",
-          "Social Media AI",
-          "Premium Dashboard",
-        ].map((item) => (
-          <div
-            key={item}
-            style={{
-              background: "rgba(255,255,255,0.05)",
-              border: "1px solid rgba(255,255,255,0.08)",
-              borderRadius: "24px",
-              padding: "28px",
-              backdropFilter: "blur(10px)",
-            }}
-          >
-            <h3
-              style={{
-                fontSize: "22px",
-                marginBottom: "12px",
-              }}
-            >
-              {item}
-            </h3>
-
-            <p
-              style={{
-                color: "#cbd5e1",
-                lineHeight: "1.6",
-              }}
-            >
-              Powerful AI features with premium futuristic UI experience.
-            </p>
-          </div>
-        ))}
-      </section>
+      </div>
     </div>
   );
 }
