@@ -3,9 +3,9 @@ export default function App() {
     <div
       style={{
         background:
-          "radial-gradient(circle at top, #3b1fa1 0%, #0a0a0a 60%)",
-        color: "white",
+          "radial-gradient(circle at top, #3b1fa1 0%, #050505 70%)",
         minHeight: "100vh",
+        color: "white",
         padding: "20px",
         fontFamily: "Arial, sans-serif",
       }}
@@ -16,7 +16,6 @@ export default function App() {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          marginBottom: "100px",
         }}
       >
         <div
@@ -28,19 +27,19 @@ export default function App() {
         >
           <img
             src="/favicon.png"
-            alt="AIVIO"
+            alt="logo"
             style={{
-              width: "45px",
-              height: "45px",
-              borderRadius: "12px",
-              boxShadow: "0 0 20px #7c3aed",
+              width: "50px",
+              height: "50px",
+              borderRadius: "14px",
+              boxShadow: "0 0 25px #8b5cf6",
             }}
           />
 
           <h1
             style={{
-              fontSize: "28px",
               margin: 0,
+              fontSize: "28px",
             }}
           >
             AIVIO
@@ -50,13 +49,13 @@ export default function App() {
         <div
           style={{
             display: "flex",
-            gap: "15px",
+            gap: "14px",
           }}
         >
           <button
             style={{
               background: "transparent",
-              border: "1px solid #555",
+              border: "1px solid #666",
               color: "white",
               padding: "10px 18px",
               borderRadius: "12px",
@@ -82,17 +81,16 @@ export default function App() {
         </div>
       </div>
 
-      {/* Hero Section */}
+      {/* Hero */}
       <div
         style={{
           textAlign: "center",
-          marginTop: "80px",
+          marginTop: "120px",
         }}
       >
         <p
           style={{
             color: "#c084fc",
-            marginBottom: "20px",
             fontSize: "18px",
           }}
         >
@@ -101,9 +99,9 @@ export default function App() {
 
         <h2
           style={{
-            fontSize: "60px",
-            marginBottom: "20px",
+            fontSize: "58px",
             lineHeight: "1.1",
+            marginTop: "20px",
           }}
         >
           Create Faster With
@@ -115,9 +113,9 @@ export default function App() {
           style={{
             color: "#b3b3b3",
             maxWidth: "700px",
-            margin: "0 auto",
-            fontSize: "20px",
+            margin: "30px auto",
             lineHeight: "1.8",
+            fontSize: "20px",
           }}
         >
           AIVIO helps creators, students, businesses and developers
@@ -127,11 +125,11 @@ export default function App() {
 
         <div
           style={{
-            marginTop: "40px",
             display: "flex",
             justifyContent: "center",
             gap: "20px",
             flexWrap: "wrap",
+            marginTop: "40px",
           }}
         >
           <button
@@ -139,11 +137,11 @@ export default function App() {
               background: "#7c3aed",
               border: "none",
               color: "white",
-              padding: "16px 28px",
+              padding: "16px 30px",
               borderRadius: "14px",
               fontSize: "18px",
               cursor: "pointer",
-              boxShadow: "0 0 25px #7c3aed",
+              boxShadow: "0 0 30px #7c3aed",
             }}
           >
             Start Free
@@ -152,9 +150,9 @@ export default function App() {
           <button
             style={{
               background: "transparent",
-              border: "1px solid #555",
+              border: "1px solid #666",
               color: "white",
-              padding: "16px 28px",
+              padding: "16px 30px",
               borderRadius: "14px",
               fontSize: "18px",
               cursor: "pointer",
@@ -166,4 +164,4 @@ export default function App() {
       </div>
     </div>
   );
-}
+            }
