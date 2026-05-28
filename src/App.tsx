@@ -27,7 +27,7 @@ export default function App() {
           }}
         >
           <img
-         src="/favicon.png"
+            src="/favicon.png"
             alt="AIVIO"
             style={{
               width: "45px",
@@ -104,4 +104,66 @@ export default function App() {
             fontSize: "60px",
             marginBottom: "20px",
             lineHeight: "1.1",
-            
+          }}
+        >
+          Create Faster With
+          <br />
+          Powerful AI Tools
+        </h2>
+
+        <p
+          style={{
+            color: "#b3b3b3",
+            maxWidth: "700px",
+            margin: "0 auto",
+            fontSize: "20px",
+            lineHeight: "1.8",
+          }}
+        >
+          AIVIO helps creators, students, businesses and developers
+          generate ideas, AI chats, content and much more with a
+          futuristic premium experience.
+        </p>
+
+        <div
+          style={{
+            marginTop: "40px",
+            display: "flex",
+            justifyContent: "center",
+            gap: "20px",
+            flexWrap: "wrap",
+          }}
+        >
+          <button
+            style={{
+              background: "#7c3aed",
+              border: "none",
+              color: "white",
+              padding: "16px 28px",
+              borderRadius: "14px",
+              fontSize: "18px",
+              cursor: "pointer",
+              boxShadow: "0 0 25px #7c3aed",
+            }}
+          >
+            Start Free
+          </button>
+
+          <button
+            style={{
+              background: "transparent",
+              border: "1px solid #555",
+              color: "white",
+              padding: "16px 28px",
+              borderRadius: "14px",
+              fontSize: "18px",
+              cursor: "pointer",
+            }}
+          >
+            Explore Features
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
